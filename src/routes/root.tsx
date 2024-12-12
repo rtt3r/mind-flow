@@ -4,14 +4,14 @@ import { Sidenav } from '../components/sidenav';
 
 export const Root = () => {
   return (
-    <div className="flex h-screen">
+    <main className="flex h-screen">
       <Sidenav />
-      <main className="flex flex-col w-full">
+      <div className="flex flex-col w-full">
         <Header />
-        <section className="flex h-full w-full p-4">
+        <section className="flex h-full w-full px-4 py-7">
           <Outlet />
         </section>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };

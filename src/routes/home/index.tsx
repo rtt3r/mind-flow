@@ -1,3 +1,3 @@
 export const HomePage = () => {
-  return <h1>Typography</h1>;
+  return <h1 className="font-semibold font text-lg">Dashboard</h1>;
 };
