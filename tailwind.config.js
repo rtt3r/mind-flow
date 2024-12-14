@@ -7,10 +7,6 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   prefix: '',
   theme: {
-    // fontFamily: {
-    //   sans: ['Cairo', ...defaultTheme.fontFamily.sans],
-    //   serif: [...defaultTheme.fontFamily.serif],
-    // },
     extend: {
       colors: {
         blue: 'hsl(var(--blue))',
