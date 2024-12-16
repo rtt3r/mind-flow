@@ -1,16 +1,3 @@
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  SquareTerminal,
-} from 'lucide-react';
-import * as React from 'react';
-
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -21,6 +8,19 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
+import {
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  GalleryVerticalEnd,
+  Home,
+  Map,
+  PieChart,
+  SquareTerminal,
+} from 'lucide-react';
+import { ComponentProps } from 'react';
 import { NavProjects } from './nav-projects';
 
 // This is sample data.
@@ -49,14 +49,18 @@ const data = {
   ],
   navMain: [
     {
+      title: 'Home',
+      url: '/home',
+      icon: Home,
+    },
+    {
       title: 'Playground',
       url: '#',
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: 'History',
-          url: '#',
+          url: '/',
         },
         {
           title: 'Starred',
@@ -130,7 +134,7 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -146,4 +150,4 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarRail />
     </Sidebar>
   );
-}
+};

@@ -1,15 +1,3 @@
-'use client';
-
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Settings2,
-  Sparkles,
-} from 'lucide-react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -26,16 +14,27 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import {
+  BadgeCheck,
+  Bell,
+  ChevronsUpDown,
+  CreditCard,
+  LogOut,
+  Settings2,
+  Sparkles,
+} from 'lucide-react';
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+interface User {
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+interface NavUserProps {
+  user: User;
+}
+
+export const NavUser = ({ user }: NavUserProps) => {
   const { isMobile } = useSidebar();
 
   return (
@@ -112,4 +111,4 @@ export function NavUser({
       </SidebarMenuItem>
     </SidebarMenu>
   );
-}
+};
