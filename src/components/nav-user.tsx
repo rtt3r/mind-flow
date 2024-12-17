@@ -20,7 +20,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
-  Settings2,
+  Settings,
   Sparkles,
 } from 'lucide-react';
 
@@ -97,7 +97,7 @@ export const NavUser = ({ user }: NavUserProps) => {
                 Notifications
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Settings2 />
+                <Settings />
                 Settings
               </DropdownMenuItem>
             </DropdownMenuGroup>

@@ -1,4 +1,5 @@
 import { NavMain } from '@/components/nav-main';
+import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
 import {
@@ -15,15 +16,14 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
-  Home,
+  Inbox,
+  LayoutDashboard,
   Map,
   PieChart,
   SquareTerminal,
 } from 'lucide-react';
 import { ComponentProps } from 'react';
-import { NavProjects } from './nav-projects';
 
-// This is sample data.
 const data = {
   user: {
     name: 'shadcn',
@@ -49,9 +49,14 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Home',
-      url: '/home',
-      icon: Home,
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: LayoutDashboard,
+    },
+    {
+      title: 'Inbox',
+      url: '/inbox',
+      icon: Inbox,
     },
     {
       title: 'Playground',
@@ -60,7 +65,7 @@ const data = {
       items: [
         {
           title: 'History',
-          url: '/',
+          url: '#',
         },
         {
           title: 'Starred',
@@ -140,7 +145,7 @@ export const AppSidebar = ({ ...props }: ComponentProps<typeof Sidebar>) => {
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
-      <SidebarContent className="">
+      <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
