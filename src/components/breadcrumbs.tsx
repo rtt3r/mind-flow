@@ -26,30 +26,45 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useMatches } from 'react-router-dom';
 
-const items = [
-  { href: '/', label: '/' },
-  { href: '#', label: 'Documentation' },
-  { href: '#', label: 'Building Your Application' },
-  { href: '#', label: 'Data Fetching' },
-  { label: 'Caching and Revalidating' },
-];
-
-const ITEMS_TO_DISPLAY = 3;
+const ITEMS_TO_DISPLAY = 2;
 
 export const Breadcrumbs = () => {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
+  const matches = useMatches();
+  const location = useLocation();
+
+  const crumbs: { id: string; href: string; label: string }[] = matches
+    // first get rid of any matches that don't have handle and crumb
+    .filter((match) => !!match.handle)
+    .map((match) => {
+      return {
+        id: match.id,
+        href: match.pathname,
+        label: (match.handle as any).crumb.title,
+      };
+    });
+
+  const [first, ...rest] = crumbs;
+  const lastItems = rest.slice(-ITEMS_TO_DISPLAY);
+  const middle = rest.slice(0, -ITEMS_TO_DISPLAY);
+
+  const isLastBreadcrumb =
+    crumbs.length > 0 && location.pathname === crumbs[crumbs.length - 1].href;
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
+        {/* First Breadcrumb */}
         <BreadcrumbItem>
-          <BreadcrumbLink href={items[0].href}>{items[0].label}</BreadcrumbLink>
+          <BreadcrumbLink href={first.href}>{first.label}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        {items.length > ITEMS_TO_DISPLAY ? (
+
+        {/* Ellipsis and Dropdown/Drawer */}
+        {rest.length > ITEMS_TO_DISPLAY && (
           <>
             <BreadcrumbItem>
               {!isMobile ? (
@@ -61,8 +76,8 @@ export const Breadcrumbs = () => {
                     <BreadcrumbEllipsis className="h-4 w-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
-                    {items.slice(1, -2).map((item, index) => (
-                      <DropdownMenuItem key={index}>
+                    {middle.map((item) => (
+                      <DropdownMenuItem key={item.id}>
                         <NavLink to={item.href ? item.href : '#'}>
                           {item.label}
                         </NavLink>
@@ -83,9 +98,9 @@ export const Breadcrumbs = () => {
                       </DrawerDescription>
                     </DrawerHeader>
                     <div className="grid gap-1 px-4">
-                      {items.slice(1, -2).map((item, index) => (
+                      {middle.map((item) => (
                         <NavLink
-                          key={index}
+                          key={item.id}
                           to={item.href ? item.href : '#'}
                           className="py-1 text-sm"
                         >
@@ -104,20 +119,18 @@ export const Breadcrumbs = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
           </>
-        ) : null}
-        {items.slice(-ITEMS_TO_DISPLAY + 1).map((item, index) => (
-          <BreadcrumbItem key={index}>
-            {item.href ? (
-              <>
-                <BreadcrumbLink
-                  asChild
-                  className="max-w-20 truncate md:max-w-none"
-                  href={item.href}
-                >
-                  {item.label}
-                </BreadcrumbLink>
-                <BreadcrumbSeparator />
-              </>
+        )}
+
+        {/* Last 3 Breadcrumbs */}
+        {lastItems.map((item) => (
+          <BreadcrumbItem key={item.id}>
+            {!isLastBreadcrumb ? (
+              <BreadcrumbLink
+                className="max-w-20 truncate md:max-w-none"
+                href={item.href}
+              >
+                {item.label}
+              </BreadcrumbLink>
             ) : (
               <BreadcrumbPage className="max-w-20 truncate md:max-w-none">
                 {item.label}

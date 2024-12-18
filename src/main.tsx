@@ -9,12 +9,6 @@ import {
   Navigate,
   RouterProvider,
 } from 'react-router-dom';
-import {
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from './components/ui/breadcrumb.tsx';
 import { DashboardPage } from './pages/dashboard/index.tsx';
 import { InboxPage } from './pages/inbox/index.tsx';
 import { Layout } from './pages/layout.tsx';
@@ -25,14 +19,9 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorBoundary />,
     handle: {
-      crumb: () => (
-        <>
-          <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink href="/">/</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator className="hidden md:block" />
-        </>
-      ),
+      crumb: {
+        title: 'Home',
+      },
     },
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
@@ -40,11 +29,9 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <DashboardPage />,
         handle: {
-          crumb: () => (
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbPage>Dashboard</BreadcrumbPage>
-            </BreadcrumbItem>
-          ),
+          crumb: {
+            title: 'Dashboard',
+          },
         },
       },
       {
@@ -52,7 +39,6 @@ const router = createBrowserRouter([
         element: <InboxPage />,
         handle: {
           crumb: {
-            url: '/inbox',
             title: 'Inbox',
           },
         },
